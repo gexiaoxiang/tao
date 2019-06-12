@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.tao.common.pojo.EUDataGridResult;
 import com.tao.mapper.TbItemMapper;
 import com.tao.pojo.TbItem;
 import com.tao.pojo.TbItemExample;
@@ -25,6 +28,23 @@ private TbItemMapper itemMapper;
 			return list.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public EUDataGridResult getItemList(int page, int rows) {
+
+		TbItemExample example=new TbItemExample();
+		
+		PageHelper.startPage(page, rows);
+		List<TbItem> list = itemMapper.selectByExample(example);
+		
+		EUDataGridResult result=new EUDataGridResult();
+		
+		result.setRows(list);
+		PageInfo<TbItem> pageInfo=new PageInfo<TbItem>(list);
+		result.setTotal(pageInfo.getTotal());
+		
+		return result;
 	}
 
 }
