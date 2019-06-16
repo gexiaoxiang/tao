@@ -1,5 +1,6 @@
 package com.tao.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tao.common.pojo.EUDataGridResult;
+import com.tao.common.pojo.TaoResult;
+import com.tao.common.utils.IDUtils;
 import com.tao.mapper.TbItemMapper;
 import com.tao.pojo.TbItem;
 import com.tao.pojo.TbItemExample;
@@ -45,6 +48,18 @@ private TbItemMapper itemMapper;
 		result.setTotal(pageInfo.getTotal());
 		
 		return result;
+	}
+
+	@Override
+	public TaoResult createItem(TbItem item) {
+		long itemId = IDUtils.genItemId();
+		item.setId(itemId);
+		item.setStatus((byte)1);
+		item.setCreated(new Date());
+		item.setUpdated(new Date());
+		itemMapper.insert(item);
+		
+		return TaoResult.ok();
 	}
 
 }
