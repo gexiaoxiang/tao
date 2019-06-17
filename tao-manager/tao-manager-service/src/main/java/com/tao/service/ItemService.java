@@ -10,5 +10,5 @@ public interface ItemService {
 
 	EUDataGridResult getItemList(int page, int rows);
 
-	TaoResult createItem(TbItem item);
+	TaoResult createItem(TbItem item,String desc) throws Exception;
 }
