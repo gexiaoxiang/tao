@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tao.common.utils.CookieUtils;
 import com.tao.pojo.TbUser;
-import com.tao.portal.service.UserService;
 import com.tao.portal.service.impl.UserServiceImpl;
 
 public class LoginInterceptor implements HandlerInterceptor {
